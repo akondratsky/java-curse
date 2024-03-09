@@ -42,7 +42,7 @@ public class App {
         System.out.println("Enter the age:");
         int age = scanner.nextInt();
         scanner.nextLine();
-        Person person = new Person(name, age);
+        Person person = new Person(42, name, age);
         System.out.println("Input file name to save:");
         String fileName = scanner.next();
         scanner.nextLine();

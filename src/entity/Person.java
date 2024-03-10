@@ -1,10 +1,5 @@
 package entity;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Person implements Serializable {
@@ -16,23 +11,6 @@ public class Person implements Serializable {
         this.id = id;
         this.name = name;
         this.age = age;
-    }
-
-    public static void saveTo(File file, Person person) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
-            oos.writeObject(person);
-        } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
-        }
-    }
-
-    public static Person loadFrom(File file) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-            return (Person) ois.readObject();
-        } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
-            return null;
-        }
     }
 
     public int getId() {

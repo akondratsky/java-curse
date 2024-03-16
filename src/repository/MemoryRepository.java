@@ -1,18 +1,18 @@
 package repository;
 
+import entity.Identifiable;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class MemoryRepository<T> implements Repository<T> {
+public abstract class MemoryRepository<T extends Identifiable> implements Repository<T> {
     private final Map<Integer, T> storage = new HashMap<>();
-
-    abstract int getId(T object);
 
     @Override
     public void save(T object) {
-        storage.put(getId(object), object);
+        storage.put(object.getId(), object);
     }
 
     @Override

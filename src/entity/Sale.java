@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Sale implements Iterable<Product>, Serializable {
+public class Sale implements Iterable<Product>, Serializable, Identifiable {
     private final int id;
     private final Person person;
     private final Map<Product, Double> products = new TreeMap<>();

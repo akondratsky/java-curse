@@ -1,5 +1,7 @@
 package repository;
 
+import entity.Identifiable;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -8,10 +10,10 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
 import java.util.List;
 
-public abstract class AbstractDirectoryRepository<T> implements Repository<T> {
+public abstract class DirectoryRepository<T extends Identifiable> implements Repository<T> {
     private final File dir;
 
-    AbstractDirectoryRepository(File dir) {
+    DirectoryRepository(File dir) {
         boolean isCreated = dir.exists() || dir.mkdirs();
         if (!isCreated) {
             throw new IllegalArgumentException("Can't create directory " + dir.getAbsolutePath());
@@ -19,10 +21,8 @@ public abstract class AbstractDirectoryRepository<T> implements Repository<T> {
         this.dir = dir;
     }
 
-    abstract int getId(T obj);
-
     public void save(T obj) {
-        File file = getFileById(getId(obj));
+        File file = getFileById(obj.getId());
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
             oos.writeObject(obj);
         } catch (Exception e) {

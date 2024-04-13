@@ -1,4 +1,4 @@
-package homework5;
+package homework5.shapes;
 
 public class Point {
     private static int count = 0;

@@ -1,4 +1,4 @@
-package homework5;
+package homework5.shapes;
 
 public class Triangle extends Shape {
     private final double a, b, c;

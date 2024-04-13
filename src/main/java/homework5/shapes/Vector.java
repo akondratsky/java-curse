@@ -1,4 +1,4 @@
-package homework5;
+package homework5.shapes;
 
 public class Vector extends Line {
 
@@ -24,8 +24,10 @@ public class Vector extends Line {
      * правилом трех точек (необходимо использовать метод startFrom )
      */
     public Vector scalarSum(Vector another) {
-        // https://ru.wikipedia.org/wiki/Вектор_(геометрия)#Правило_трёх_точек
-        throw new UnsupportedOperationException("Not implemented yet");
+        return new Vector(
+                pos1,
+                another.startFrom(pos2).pos2
+        );
     }
 
     /**

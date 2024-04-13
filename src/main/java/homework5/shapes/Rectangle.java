@@ -1,4 +1,4 @@
-package homework5;
+package homework5.shapes;
 
 public class Rectangle extends Shape {
     private final double a;

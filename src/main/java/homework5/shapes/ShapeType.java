@@ -1,9 +1,9 @@
-package homework5;
+package homework5.shapes;
 
 public enum ShapeType {
     TRIANGLE,
     RECTANGLE,
     CIRCLE,
     SQUARE,
-    DOT,
+    POINT,
 }

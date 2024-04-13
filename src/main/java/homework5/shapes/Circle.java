@@ -1,4 +1,4 @@
-package homework5;
+package homework5.shapes;
 
 public class Circle extends Shape {
     private final Point center;

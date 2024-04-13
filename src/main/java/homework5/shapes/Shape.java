@@ -1,4 +1,4 @@
-package homework5;
+package homework5.shapes;
 
 public class Shape {
     private final ShapeType type;

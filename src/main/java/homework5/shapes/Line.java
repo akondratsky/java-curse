@@ -1,4 +1,4 @@
-package homework5;
+package homework5.shapes;
 
 public class Line {
     protected final Point pos1;
@@ -14,7 +14,7 @@ public class Line {
      * аргумент another типа Line , и возвращает значение типа boolean ,
      * которое отвечает на вопрос: пересекаются ли линии?
      */
-    public static boolean isCross(Line l1, Line l2) {
+    public boolean isCross(Line another) {
         throw new UnsupportedOperationException("Not implemented");
     }
 
@@ -23,8 +23,12 @@ public class Line {
      * аргумент another типа Line , и возвращает значение типа boolean ,
      * которое отвечает на вопрос: параллельны ли линии?
      */
-    public static boolean isParallel(Line l1, Line l2) {
-        throw new UnsupportedOperationException("Not implemented");
+    public boolean isParallel(Line another) {
+        return slope() == another.slope();
+    }
+
+    public double slope() {
+        return (double) (pos2.y - pos1.y) / (pos2.x - pos1.x);
     }
 
     public double length() {

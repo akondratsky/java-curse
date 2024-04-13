@@ -1,6 +1,7 @@
 package io.github.akondratsky.repository;
 
 import io.github.akondratsky.entity.Person;
+import io.github.akondratsky.entity.Product;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,36 +11,46 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class DirectoryPersonRepository extends AbstractDirectoryRepository<Person> implements PersonRepository {
-    public DirectoryPersonRepository(File directory) {
-        super(directory);
+public class DirectoryProductRepository extends AbstractDirectoryRepository<Product> {
+    public DirectoryProductRepository(File dir) {
+        super(dir);
     }
 
-    public Person load(int id) {
+    @Override
+    public Product load(int id) {
         File file = getFileById(id);
         try (Scanner scanner = new Scanner(new FileInputStream(file))) {
             String name = scanner.nextLine();
-            int age = scanner.nextInt();
-            return new Person(id, name, age);
+            double price = scanner.nextDouble();
+            return new Product(id, name, price);
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
             return null;
         }
     }
 
-    public List<Person> load(List<Integer> ids) {
+    @Override
+    public List<Product> load(List<Integer> ids) {
         return ids.stream()
                 .map(this::load)
                 .collect(Collectors.toList());
     }
 
-    public void save(Person person) {
-        File file = getFileById(person.getId());
+    @Override
+    public void save(Product product) {
+        File file = getFileById(product.getId());
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(file))) {
-            writer.println(person.getName());
-            writer.println(person.getAge());
+            writer.println(product.getName());
+            writer.println(product.getPrice());
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }
+    }
+
+    public List<Product> loadAllByMaxPrice(double maxPrice) {
+        return getAllIds().stream()
+                .map(this::load)
+                .filter(product -> product.getPrice() < maxPrice)
+                .collect(Collectors.toList());
     }
 }

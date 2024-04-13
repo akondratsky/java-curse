@@ -1,11 +1,10 @@
 package io.github.akondratsky.entity;
 
-import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Sale implements Iterable<Product>, Serializable, Identifiable {
+public class Sale implements Iterable<Product> {
     private final int id;
     private final Person person;
     private final Map<Product, Double> products = new TreeMap<>();
@@ -25,6 +24,10 @@ public class Sale implements Iterable<Product>, Serializable, Identifiable {
 
     public int getId() {
         return id;
+    }
+
+    public int getPersonId() {
+        return person.getId();
     }
 
     @Override

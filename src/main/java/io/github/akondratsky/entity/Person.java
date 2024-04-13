@@ -2,7 +2,7 @@ package io.github.akondratsky.entity;
 
 import java.io.Serializable;
 
-public class Person implements Serializable, Identifiable {
+public class Person implements Serializable {
     private final int id;
     private final String name;
     private final int age;
@@ -15,6 +15,14 @@ public class Person implements Serializable, Identifiable {
 
     public int getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     @Override

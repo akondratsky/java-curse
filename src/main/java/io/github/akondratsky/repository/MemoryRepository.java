@@ -1,19 +1,19 @@
 package io.github.akondratsky.repository;
 
-import io.github.akondratsky.entity.Identifiable;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public abstract class MemoryRepository<T extends Identifiable> implements Repository<T> {
+public abstract class MemoryRepository<T> implements Repository<T> {
     private final Map<Integer, T> storage = new HashMap<>();
+
+    protected abstract int getId(T object);
 
     @Override
     public void save(T object) {
-        storage.put(object.getId(), object);
+        storage.put(getId(object), object);
     }
 
     @Override
@@ -22,7 +22,6 @@ public abstract class MemoryRepository<T extends Identifiable> implements Reposi
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<T> load(List<Integer> ids) {
         return ids.stream()
                 .map(storage::get)

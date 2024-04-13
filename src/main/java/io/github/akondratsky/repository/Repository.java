@@ -1,4 +1,4 @@
-package com.github.akondratsky.repository;
+package io.github.akondratsky.repository;
 
 import java.util.List;
 
@@ -7,5 +7,5 @@ public interface Repository<T> {
 
     T load(int id);
 
-    T[] load(List<Integer> ids);
+    List<T> load(List<Integer> ids);
 }

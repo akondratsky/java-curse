@@ -1,11 +1,12 @@
-package com.github.akondratsky.repository;
+package io.github.akondratsky.repository;
 
-import entity.Identifiable;
+import io.github.akondratsky.entity.Identifiable;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public abstract class MemoryRepository<T extends Identifiable> implements Repository<T> {
     private final Map<Integer, T> storage = new HashMap<>();
@@ -22,10 +23,10 @@ public abstract class MemoryRepository<T extends Identifiable> implements Reposi
 
     @Override
     @SuppressWarnings("unchecked")
-    public T[] load(List<Integer> ids) {
+    public List<T> load(List<Integer> ids) {
         return ids.stream()
                 .map(storage::get)
                 .filter(Objects::nonNull)
-                .toArray(size -> (T[]) new Object[size]);
+                .collect(Collectors.toList());
     }
 }

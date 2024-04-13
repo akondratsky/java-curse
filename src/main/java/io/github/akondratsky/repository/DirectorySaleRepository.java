@@ -1,6 +1,6 @@
-package com.github.akondratsky.repository;
+package io.github.akondratsky.repository;
 
-import entity.Sale;
+import io.github.akondratsky.entity.Sale;
 
 import java.io.File;
 

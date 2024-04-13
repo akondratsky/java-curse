@@ -1,4 +1,4 @@
-package com.github.akondratsky.factory;
+package io.github.akondratsky.factory;
 
 public interface EntityFactory<T> {
     T create();

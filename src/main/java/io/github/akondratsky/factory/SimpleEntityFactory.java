@@ -1,4 +1,4 @@
-package com.github.akondratsky.factory;
+package io.github.akondratsky.factory;
 
 public abstract class SimpleEntityFactory<T> implements EntityFactory<T> {
     private int nextId = 1;

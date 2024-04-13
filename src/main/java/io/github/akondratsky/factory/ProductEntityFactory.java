@@ -1,6 +1,6 @@
-package com.github.akondratsky.factory;
+package io.github.akondratsky.factory;
 
-import entity.Product;
+import io.github.akondratsky.entity.Product;
 
 public class ProductEntityFactory extends SimpleEntityFactory<Product> {
     @Override

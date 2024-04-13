@@ -1,4 +1,4 @@
-package com.github.akondratsky.entity;
+package io.github.akondratsky.entity;
 
 import java.io.Serializable;
 import java.util.Iterator;

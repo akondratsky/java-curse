@@ -1,6 +1,6 @@
-package com.github.akondratsky.repository;
+package io.github.akondratsky.repository;
 
-import entity.Person;
+import io.github.akondratsky.entity.Person;
 
 import java.io.File;
 

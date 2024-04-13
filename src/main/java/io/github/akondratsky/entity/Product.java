@@ -1,4 +1,4 @@
-package com.github.akondratsky.entity;
+package io.github.akondratsky.entity;
 
 public class Product implements Comparable<Product> {
     private final int id;

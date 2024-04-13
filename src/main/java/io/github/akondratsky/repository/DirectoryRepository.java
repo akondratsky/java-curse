@@ -1,6 +1,6 @@
-package com.github.akondratsky.repository;
+package io.github.akondratsky.repository;
 
-import entity.Identifiable;
+import io.github.akondratsky.entity.Identifiable;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class DirectoryRepository<T extends Identifiable> implements Repository<T> {
     private final File dir;
@@ -42,10 +43,10 @@ public abstract class DirectoryRepository<T extends Identifiable> implements Rep
     }
 
     @SuppressWarnings("unchecked")
-    public T[] load(List<Integer> ids) {
+    public List<T> load(List<Integer> ids) {
         return ids.stream()
                 .map(this::load)
-                .toArray(size -> (T[]) new Object[size]);
+                .collect(Collectors.toList());
     }
 
     private File getFileById(int id) {

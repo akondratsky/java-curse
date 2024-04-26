@@ -3,11 +3,12 @@ package io.github.akondratsky.repository;
 import io.github.akondratsky.entity.Person;
 
 import java.io.File;
+import java.util.List;
 
-public class DirectoryRepository implements Repository<Person> {
+public class DirectoryPersonRepository implements Repository<Person> {
     private final File dir;
 
-    public DirectoryRepository(File dir) {
+    public DirectoryPersonRepository(File dir) {
         if (!dir.exists() && !dir.mkdir()) {
             throw new IllegalArgumentException("Error creating the directory" + dir.getAbsolutePath());
         } else if (!dir.isDirectory()) {
@@ -26,5 +27,10 @@ public class DirectoryRepository implements Repository<Person> {
     public Person load(int id) {
         File file = new File(dir, id + ".json");
         return Person.loadFrom(file);
+    }
+
+    @Override
+    public List<Person> load(List<Integer> ids) {
+        return null;
     }
 }

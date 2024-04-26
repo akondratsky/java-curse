@@ -1,7 +1,7 @@
 package io.github.akondratsky;
 
 import io.github.akondratsky.entity.Person;
-import io.github.akondratsky.repository.DirectoryRepository;
+import io.github.akondratsky.repository.DirectoryPersonRepository;
 
 import java.io.File;
 
@@ -11,7 +11,7 @@ public class Main {
 
         File directory = new File("output_persons");
 
-        DirectoryRepository personRepo = new DirectoryRepository(directory);
+        DirectoryPersonRepository personRepo = new DirectoryPersonRepository(directory);
 
         personRepo.save(person);
 

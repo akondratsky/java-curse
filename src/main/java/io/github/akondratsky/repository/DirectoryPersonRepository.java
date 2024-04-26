@@ -31,6 +31,6 @@ public class DirectoryPersonRepository implements Repository<Person> {
 
     @Override
     public List<Person> load(List<Integer> ids) {
-        return null;
+        return ids.stream().map(this::load).toList();
     }
 }

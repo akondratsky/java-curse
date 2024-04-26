@@ -1,6 +1,7 @@
 package io.github.akondratsky;
 
 import io.github.akondratsky.entity.Person;
+import io.github.akondratsky.repository.DirectoryPersonRepository;
 
 import java.io.File;
 
@@ -8,11 +9,13 @@ public class Main {
     public static void main(String[] args) {
         Person person = new Person(42, "alex", 33);
 
-        File file = new File("output.json");
+        File directory = new File("output_persons");
 
-        Person.saveTo(file, person);
+        DirectoryPersonRepository personRepo = new DirectoryPersonRepository(directory);
 
-        Person loaded = Person.loadFrom(file);
+        personRepo.save(person);
+
+        Person loaded = personRepo.load(42);
 
         System.out.println(loaded);
     }

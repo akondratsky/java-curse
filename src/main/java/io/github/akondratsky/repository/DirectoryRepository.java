@@ -4,10 +4,10 @@ import io.github.akondratsky.entity.Person;
 
 import java.io.File;
 
-public class DirectoryPersonRepository implements PersonRepository {
+public class DirectoryRepository implements Repository<Person> {
     private final File dir;
 
-    public DirectoryPersonRepository(File dir) {
+    public DirectoryRepository(File dir) {
         if (!dir.exists() && !dir.mkdir()) {
             throw new IllegalArgumentException("Error creating the directory" + dir.getAbsolutePath());
         } else if (!dir.isDirectory()) {

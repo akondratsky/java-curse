@@ -1,32 +1,53 @@
 package io.github.akondratsky.entity;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class Person implements Serializable {
-    private final int id;
-    private final String name;
-    private final int age;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
-    public Person(int id, String name, int age) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class Person {
+    @JsonProperty
+    private int id;
+    @JsonProperty
+    private String name;
+    @JsonProperty
+    private int age;
+
+    public static void saveTo(File file, Person person) {
+        ObjectMapper mapper = new ObjectMapper();
+        try (PrintWriter writer = new PrintWriter(file)) {
+            String json = mapper.writeValueAsString(person);
+            writer.write(json);
+        } catch (JsonProcessingException e) {
+            System.err.println("Serializing Person error: " + file.getName());
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + file.getName());
+        }
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    @Override
-    public String toString() {
-        return name + ", who is " + age + " years old.";
+    public static Person loadFrom(File file) {
+        ObjectMapper mapper = new ObjectMapper();
+        try (Scanner scanner = new Scanner(file)) {
+            String json = scanner.nextLine();
+            return mapper.readValue(json, Person.class);
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + file.getName());
+        } catch (JsonMappingException e) {
+            System.err.println("Incorrect Person format: " + file.getName());
+        } catch (JsonProcessingException e) {
+            System.err.println("Error parsing Person: " + file.getName());
+        }
+        return null;
     }
 }

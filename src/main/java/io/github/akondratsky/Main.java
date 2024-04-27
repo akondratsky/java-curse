@@ -1,16 +1,11 @@
 package io.github.akondratsky;
 
-import io.github.akondratsky.entity.Person;
-import io.github.akondratsky.entity.Sale;
-import io.github.akondratsky.repository.DirectoryPersonRepository;
-
-import java.io.File;
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.akondratsky.repository.CurrencyResourceRepository;
 
 public class Main {
     public static void main(String[] args) {
-        Person person = new Person();
-        Sale sale = new Sale(42);
-        System.out.println(sale);
+        CurrencyResourceRepository repo = new CurrencyResourceRepository(new ObjectMapper());
+        System.out.println(repo.load(2));
     }
 }

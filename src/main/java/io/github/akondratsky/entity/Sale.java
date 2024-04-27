@@ -1,6 +1,5 @@
 package io.github.akondratsky.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -45,7 +44,7 @@ public class Sale implements Iterable<Product> {
             String json = getMapper().writeValueAsString(sale);
             writer.write(json);
         } catch (JsonProcessingException e) {
-            System.err.println("Serializing Person error: " + file.getName());
+            System.err.println("Serializing Sale error: " + file.getName());
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + file.getName());
         }
@@ -58,9 +57,9 @@ public class Sale implements Iterable<Product> {
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + file.getName());
         } catch (JsonMappingException e) {
-            System.err.println("Incorrect Person format: " + file.getName());
+            System.err.println("Incorrect Sale format: " + file.getName());
         } catch (JsonProcessingException e) {
-            System.err.println("Error parsing Person: " + file.getName());
+            System.err.println("Error parsing Sale: " + file.getName());
         }
         return null;
     }

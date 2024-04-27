@@ -51,4 +51,15 @@ public class CurrencyService {
                 .findAny()
                 .orElse(null);
     }
+
+    public double getRate(Currency from, Currency to) {
+        if (!rates.containsKey(from)) {
+            return -1.0;
+        }
+        Map<Currency, Double> currencyRates = rates.get(from);
+        if (!currencyRates.containsKey(to)) {
+            return -1.0;
+        }
+        return currencyRates.get(to);
+    }
 }

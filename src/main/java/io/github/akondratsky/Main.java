@@ -10,5 +10,7 @@ public class Main {
         CurrencyResourceRepository currencyRepository = new CurrencyResourceRepository(mapper);
         CurrencyService currencyService = new CurrencyService(mapper, currencyRepository);
 
+        System.out.println(currencyService.getById(42));
+        System.out.println(currencyService.getById("EUR"));
     }
 }

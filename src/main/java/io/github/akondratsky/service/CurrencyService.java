@@ -27,11 +27,11 @@ public class CurrencyService {
         try {
             JsonNode node = mapper.readValue(resourceUrl, JsonNode.class);
             node.fieldNames().forEachRemaining(currencyId -> {
-                Currency currentCurrency = currencyRepository.load(Integer.parseInt(currencyId));
+                Currency currentCurrency = getById(Integer.parseInt(currencyId));
                 Map<Currency, Double> currencyRates = new HashMap<>();
                 JsonNode currencyRatesNode = node.get(currencyId);
                 currencyRatesNode.fieldNames().forEachRemaining(currencyRateId -> {
-                    Currency rateCurrency = currencyRepository.load(Integer.parseInt(currencyRateId));
+                    Currency rateCurrency = getById(Integer.parseInt(currencyRateId));
                     currencyRates.put(rateCurrency, currencyRatesNode.get(currencyRateId).asDouble());
                 });
                 rates.put(currentCurrency, currencyRates);
@@ -39,6 +39,16 @@ public class CurrencyService {
         } catch (IOException e) {
             System.err.println("Unable to read currencies from file");
         }
+    }
 
+    public Currency getById(int id) {
+        return currencyRepository.load(id);
+    }
+
+    public Currency getById(String isoName) {
+        return currencyRepository.loadAll().stream()
+                .filter(currency -> currency.getIsoName().equals(isoName))
+                .findAny()
+                .orElse(null);
     }
 }

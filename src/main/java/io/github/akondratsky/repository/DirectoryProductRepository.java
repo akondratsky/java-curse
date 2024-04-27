@@ -18,12 +18,6 @@ public class DirectoryProductRepository implements Repository<Product> {
         this.dir = dir;
     }
 
-    public List<Product> loadAllByMaxPrice(double maxPrice) {
-        return loadAll().stream()
-                .filter(product -> product != null && product.getPrice() < maxPrice)
-                .toList();
-    }
-
     @Override
     public void save(Product product) {
         File file = new File(dir, product.getId() + ".json");

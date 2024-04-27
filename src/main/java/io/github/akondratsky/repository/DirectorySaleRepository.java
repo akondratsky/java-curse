@@ -18,12 +18,6 @@ public class DirectorySaleRepository implements Repository<Sale> {
         this.dir = dir;
     }
 
-    public List<Sale> loadAllByPersonId(int id) {
-        return loadAll().stream()
-            .filter(sale -> sale != null && sale.getId() == id)
-            .toList();
-    }
-
     @Override
     public void save(Sale sale) {
         File file = new File(dir, sale.getId() + ".json");

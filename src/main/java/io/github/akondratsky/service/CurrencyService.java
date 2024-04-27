@@ -1,0 +1,44 @@
+package io.github.akondratsky.service;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.akondratsky.entity.Currency;
+import io.github.akondratsky.repository.CurrencyResourceRepository;
+import io.github.akondratsky.repository.Repository;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
+public class CurrencyService {
+    private final Repository<Currency> currencyRepository;
+    private final Map<Currency, Map<Currency, Double>> rates;
+
+    public CurrencyService(ObjectMapper mapper, Repository<Currency> currencyRepository) {
+        this.currencyRepository = currencyRepository;
+        this.rates = new HashMap<>();
+
+        URL resourceUrl = CurrencyResourceRepository.class.getResource("/currencies_rates.json");
+
+        if (resourceUrl == null) {
+            throw new IllegalArgumentException("Resource file not found");
+        }
+        try {
+            JsonNode node = mapper.readValue(resourceUrl, JsonNode.class);
+            node.fieldNames().forEachRemaining(currencyId -> {
+                Currency currentCurrency = currencyRepository.load(Integer.parseInt(currencyId));
+                Map<Currency, Double> currencyRates = new HashMap<>();
+                JsonNode currencyRatesNode = node.get(currencyId);
+                currencyRatesNode.fieldNames().forEachRemaining(currencyRateId -> {
+                    Currency rateCurrency = currencyRepository.load(Integer.parseInt(currencyRateId));
+                    currencyRates.put(rateCurrency, currencyRatesNode.get(currencyRateId).asDouble());
+                });
+                rates.put(currentCurrency, currencyRates);
+            });
+        } catch (IOException e) {
+            System.err.println("Unable to read currencies from file");
+        }
+
+    }
+}

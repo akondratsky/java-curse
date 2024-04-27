@@ -15,7 +15,7 @@ public class CurrencyResourceRepository extends MemoryRepository<Currency> {
         URL resourceUrl = CurrencyResourceRepository.class.getResource("/currencies.json");
 
         if (resourceUrl == null) {
-            throw new IllegalArgumentException("Resource nof file not found");
+            throw new IllegalArgumentException("Resource file not found");
         }
 
         TypeFactory typeFactory = mapper.getTypeFactory();

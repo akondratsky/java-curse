@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
@@ -24,10 +25,6 @@ import java.util.TreeMap;
 public class Sale implements Iterable<Product> {
     @JsonProperty
     private int id;
-
-    /** price of all sale */
-    @JsonProperty
-    private double amount;
 
     /** who bought */
     @JsonProperty
@@ -45,11 +42,27 @@ public class Sale implements Iterable<Product> {
         this.timestamp = LocalDateTime.now();
     }
 
-    public Sale(int id, double amount, Person person, LocalDateTime timestamp) {
+    public Sale(int id, Person person, LocalDateTime timestamp) {
         this.id = id;
-        this.amount = amount;
         this.person = person;
         this.timestamp = timestamp;
+    }
+
+    public Map<Currency, Double> getAmount() {
+        Map<Currency, Double> amounts = new HashMap<>();
+
+        for (Product product : products.keySet()) {
+            Currency currency = product.getCurrency();
+            double currentProductAmount = products.get(product) * product.getPrice();
+
+            if (!amounts.containsKey(currency)) {
+                amounts.put(currency, currentProductAmount);
+            } else {
+                amounts.put(currency, amounts.get(currency) + currentProductAmount);
+            }
+        }
+
+        return amounts;
     }
 
     @Override

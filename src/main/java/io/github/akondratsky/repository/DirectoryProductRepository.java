@@ -3,6 +3,7 @@ package io.github.akondratsky.repository;
 import io.github.akondratsky.entity.Product;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 public class DirectoryProductRepository implements Repository<Product> {
@@ -17,6 +18,16 @@ public class DirectoryProductRepository implements Repository<Product> {
         this.dir = dir;
     }
 
+    public List<Product> loadAllByMaxPrice(double maxPrice) {
+        File[] files = dir.listFiles();
+        if (files == null) {
+            return List.of();
+        }
+        return Arrays.stream(files)
+                .map(Product::loadFrom)
+                .filter(product -> product != null && product.getPrice() < maxPrice)
+                .toList();
+    }
 
     @Override
     public void save(Product product) {

@@ -1,7 +1,9 @@
 package homework14;
 
 import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 
 public class Main {
@@ -19,5 +21,15 @@ public class Main {
             }
         }
         return unluckyDays;
+    }
+
+    public static String minutesToMidnight(LocalDateTime timestamp) {
+        LocalDateTime midnight = timestamp
+                .withDayOfYear(timestamp.getDayOfYear() + 1)
+                .withHour(0)
+                .withMinute(0);
+        Duration duration = Duration.between(timestamp, midnight);
+        long minutes = duration.toMinutes();
+        return minutes + " minute" + (minutes == 1 ? "" : "s");
     }
 }

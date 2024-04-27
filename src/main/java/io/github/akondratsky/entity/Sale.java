@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
+@AllArgsConstructor()
 @NoArgsConstructor
 @Data
 public class Sale implements Iterable<Product> {
@@ -29,6 +31,10 @@ public class Sale implements Iterable<Product> {
     /** amount of each product */
     @JsonProperty
     private Map<Product, Double> products = new TreeMap<>();
+
+    public Sale(int id) {
+        this.id = id;
+    }
 
     @Override
     public Iterator<Product> iterator() {

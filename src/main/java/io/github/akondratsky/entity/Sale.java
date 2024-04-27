@@ -1,5 +1,6 @@
 package io.github.akondratsky.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -15,11 +16,12 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-@AllArgsConstructor()
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Sale implements Iterable<Product> {
@@ -34,7 +36,7 @@ public class Sale implements Iterable<Product> {
     private LocalDateTime timestamp;
 
     /** amount of each product */
-    @JsonProperty
+    @JsonIgnore
     private Map<Product, Double> products = new TreeMap<>();
 
     public Sale(int id) {
@@ -46,6 +48,13 @@ public class Sale implements Iterable<Product> {
         this.id = id;
         this.person = person;
         this.timestamp = timestamp;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class JsonProduct {
+        private Product product;
+        private Double count;
     }
 
     public Map<Currency, Double> getAmount() {
@@ -99,5 +108,20 @@ public class Sale implements Iterable<Product> {
             System.err.println("Error parsing Sale: " + file.getName());
         }
         return null;
+    }
+
+    @JsonProperty("products")
+    public List<JsonProduct> getJsonProducts() {
+        return products.entrySet().stream()
+                .map(entry -> new JsonProduct(entry.getKey(), entry.getValue()))
+                .toList();
+    }
+
+    @JsonProperty("products")
+    public void setJsonProducts(List<JsonProduct> jsonProducts) {
+        products.clear();
+        for (JsonProduct jsonProduct : jsonProducts) {
+            products.put(jsonProduct.getProduct(), jsonProduct.getCount());
+        }
     }
 }

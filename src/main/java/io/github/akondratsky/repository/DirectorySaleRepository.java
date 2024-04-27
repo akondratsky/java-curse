@@ -3,6 +3,7 @@ package io.github.akondratsky.repository;
 import io.github.akondratsky.entity.Sale;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 public class DirectorySaleRepository implements Repository<Sale> {
@@ -15,6 +16,19 @@ public class DirectorySaleRepository implements Repository<Sale> {
             throw new IllegalArgumentException(dir.getAbsolutePath() + " is not a directory");
         }
         this.dir = dir;
+    }
+
+    public List<Sale> loadAllByPersonId(int id) {
+        File[] files = dir.listFiles();
+
+        if (files == null) {
+            return List.of();
+        }
+
+        return Arrays.stream(files)
+                .map(Sale::loadFrom)
+                .filter(sale -> sale != null && sale.getId() == id)
+                .toList();
     }
 
     @Override

@@ -23,4 +23,8 @@ public abstract class MemoryRepository<T> implements Repository<T> {
                 .map(Map.Entry::getValue)
                 .toList();
     }
+
+    public List<T> loadAll() {
+        return storage.values().stream().toList();
+    }
 }

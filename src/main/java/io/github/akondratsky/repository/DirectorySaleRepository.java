@@ -19,16 +19,9 @@ public class DirectorySaleRepository implements Repository<Sale> {
     }
 
     public List<Sale> loadAllByPersonId(int id) {
-        File[] files = dir.listFiles();
-
-        if (files == null) {
-            return List.of();
-        }
-
-        return Arrays.stream(files)
-                .map(Sale::loadFrom)
-                .filter(sale -> sale != null && sale.getId() == id)
-                .toList();
+        return loadAll().stream()
+            .filter(sale -> sale != null && sale.getId() == id)
+            .toList();
     }
 
     @Override
@@ -46,5 +39,18 @@ public class DirectorySaleRepository implements Repository<Sale> {
     @Override
     public List<Sale> load(List<Integer> ids) {
         return ids.stream().map(this::load).toList();
+    }
+
+    @Override
+    public List<Sale> loadAll() {
+        File[] files = dir.listFiles();
+
+        if (files == null) {
+            return List.of();
+        }
+
+        return Arrays.stream(files)
+                .map(Sale::loadFrom)
+                .toList();
     }
 }

@@ -19,12 +19,7 @@ public class DirectoryProductRepository implements Repository<Product> {
     }
 
     public List<Product> loadAllByMaxPrice(double maxPrice) {
-        File[] files = dir.listFiles();
-        if (files == null) {
-            return List.of();
-        }
-        return Arrays.stream(files)
-                .map(Product::loadFrom)
+        return loadAll().stream()
                 .filter(product -> product != null && product.getPrice() < maxPrice)
                 .toList();
     }
@@ -43,5 +38,16 @@ public class DirectoryProductRepository implements Repository<Product> {
     @Override
     public List<Product> load(List<Integer> ids) {
         return ids.stream().map(this::load).toList();
+    }
+
+    @Override
+    public List<Product> loadAll() {
+        File[] files = dir.listFiles();
+        if (files == null) {
+            return List.of();
+        }
+        return Arrays.stream(files)
+                .map(Product::loadFrom)
+                .toList();
     }
 }

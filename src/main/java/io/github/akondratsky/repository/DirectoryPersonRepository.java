@@ -3,6 +3,7 @@ package io.github.akondratsky.repository;
 import io.github.akondratsky.entity.Person;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 public class DirectoryPersonRepository implements Repository<Person> {
@@ -32,5 +33,17 @@ public class DirectoryPersonRepository implements Repository<Person> {
     @Override
     public List<Person> load(List<Integer> ids) {
         return ids.stream().map(this::load).toList();
+    }
+
+    public List<Person> loadAll() {
+        File[] files = dir.listFiles();
+
+        if (files == null) {
+            return List.of();
+        }
+
+        return Arrays.stream(files)
+                .map(Person::loadFrom)
+                .toList();
     }
 }

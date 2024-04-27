@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 
 public class Main {
     public static boolean isPeriodLate(LocalDate last, LocalDate today, int cycleLength) {
@@ -31,5 +32,11 @@ public class Main {
         Duration duration = Duration.between(timestamp, midnight);
         long minutes = duration.toMinutes();
         return minutes + " minute" + (minutes == 1 ? "" : "s");
+    }
+
+    public static String ageInDays(int year, int month, int day) {
+        LocalDate birthday = LocalDate.of(year, month, day);
+        long days = ChronoUnit.DAYS.between(birthday, LocalDate.now());
+        return "You are " + days + " days old";
     }
 }

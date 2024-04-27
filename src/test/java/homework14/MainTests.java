@@ -1,5 +1,7 @@
 package homework14;
 
+import org.joda.time.DateTimeUtils;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -7,6 +9,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MainTests {
+    @AfterEach
+    public void setUp() {
+        DateTimeUtils.setCurrentMillisSystem();
+    }
+
     @Test
     public void numberOfDayesPassedIsGreatherThanCycleLength() {
         LocalDate last = LocalDate.of(2007, 1, 1);
@@ -47,4 +54,9 @@ public class MainTests {
         Assertions.assertEquals("1 minute", Main.minutesToMidnight(timestamp));
     }
 
+    @Test
+    public void ageInTheDaysReturnsNumberOfDaysInYears() {
+        DateTimeUtils.setCurrentMillisFixed(1714239693439L); // Sat Apr 27 2024 19:41:33 GMT+0200
+        Assertions.assertEquals("You are 12972 days old", Main.ageInDays(1988, 10, 21));
+    }
 }

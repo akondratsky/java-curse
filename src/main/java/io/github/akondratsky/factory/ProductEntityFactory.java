@@ -6,6 +6,6 @@ public class ProductEntityFactory extends SimpleEntityFactory<Product> {
 
     @Override
     public Product create() {
-        return new Product(getNextId(), "", 0.0);
+        return new Product(getNextId(), "", 0.0, null);
     }
 }

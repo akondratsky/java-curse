@@ -26,6 +26,8 @@ public class Product implements Comparable<Product> {
     @JsonProperty
     private double price;
 
+    private Currency currency;
+
     @Override
     public int compareTo(Product product) {
         return this.id - product.getId();

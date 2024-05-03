@@ -29,7 +29,7 @@ public class CurrencyService {
 
     public Currency getById(String isoName) {
         return currencyRepository.loadAll().stream()
-                .filter(currency -> currency.getIsoName().equals(isoName))
+                .filter(currency -> currency.getIsoName().equalsIgnoreCase(isoName))
                 .findAny()
                 .orElse(null);
     }

@@ -18,7 +18,12 @@ public class SaleService {
 
     public List<Sale> loadAllByPersonId(int id) {
         return repository.loadAll().stream()
-                .filter(sale -> sale != null && sale.getId() == id)
+                .filter(sale -> {
+                    if (sale == null || sale.getPerson() == null) {
+                        return false;
+                    }
+                    return sale.getPerson().getId() == id;
+                })
                 .toList();
     }
 

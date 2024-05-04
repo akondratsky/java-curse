@@ -4,6 +4,7 @@ import io.github.akondratsky.entity.Sale;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DirectorySaleRepository implements Repository<Sale> {
@@ -40,7 +41,7 @@ public class DirectorySaleRepository implements Repository<Sale> {
         File[] files = dir.listFiles();
 
         if (files == null) {
-            return List.of();
+            return Collections.emptyList();
         }
 
         return Arrays.stream(files)

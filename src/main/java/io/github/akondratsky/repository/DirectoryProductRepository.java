@@ -4,6 +4,7 @@ import io.github.akondratsky.entity.Product;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DirectoryProductRepository implements Repository<Product> {
@@ -38,7 +39,7 @@ public class DirectoryProductRepository implements Repository<Product> {
     public List<Product> loadAll() {
         File[] files = dir.listFiles();
         if (files == null) {
-            return List.of();
+            return Collections.emptyList();
         }
         return Arrays.stream(files)
                 .map(Product::loadFrom)

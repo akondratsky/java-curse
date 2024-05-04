@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
@@ -48,7 +49,7 @@ public class JsonFileRepository<T> implements Repository<T> {
     public List<T> loadAll() {
         File[] files = dir.listFiles();
         if (files == null) {
-            return List.of();
+            return Collections.emptyList();
         }
         return Arrays.stream(files)
                 .map(this::loadFromFile)

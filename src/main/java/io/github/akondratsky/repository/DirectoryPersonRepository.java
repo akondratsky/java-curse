@@ -4,6 +4,7 @@ import io.github.akondratsky.entity.Person;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DirectoryPersonRepository implements Repository<Person> {
@@ -39,7 +40,7 @@ public class DirectoryPersonRepository implements Repository<Person> {
         File[] files = dir.listFiles();
 
         if (files == null) {
-            return List.of();
+            return Collections.emptyList();
         }
 
         return Arrays.stream(files)

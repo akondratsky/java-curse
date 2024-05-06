@@ -1,0 +1,13 @@
+version: "3.9"
+# only for local development :)
+name: java-curse
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_PASSWORD: 12345
+    ports:
+      - 5777:5432
+    volumes:
+      - ./database:/var/lib/postgresql/data
